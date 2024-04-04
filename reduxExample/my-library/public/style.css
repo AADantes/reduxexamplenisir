@@ -1,0 +1,86 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+.student-table{
+    width:100%;
+}
+.student-table th{
+    width:20%;
+}
+
+.book-table{
+    width:100%;
+}
+
+.book-table th{
+    width:20%;
+}
+
+
+.student-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    gap:10px;
+}
+
+.book-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    gap:10px;
+}
+
+.student-form input{
+    width:200px;
+    min-height: 10px;
+    aspect-ratio: 5/1;
+}
+
+.book-form input{
+    width:200px;
+    min-height: 10px;
+    aspect-ratio: 5/1;
+}
+
+.add-student{
+    background-color: rgb(77, 77, 246);
+    color:#ffffff;
+    width:100px;
+    height: 35px;
+}
+
+<<<<<<< HEAD
+.update-student{
+    background-color: rgb(198, 245, 29);
+    color:black;
+    width:100px;
+    height: 35px;
+}
+
+
+=======
+>>>>>>> a1b2ae6c45532b58059aa36070d9b51575ed36f8
+.add-book{
+    background-color: rgb(77, 77, 246);
+    color:#ffffff;
+    width:100px;
+    height: 35px;
+}
+.navigation ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    gap:10px;
+
+    list-style: none;
+}
+.navigation ul li a{
+    text-decoration: none;
+}
