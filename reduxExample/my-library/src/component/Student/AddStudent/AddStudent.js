@@ -3,6 +3,8 @@ import React,{useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {setStudent, setSelectedStudent} from '../../../redux/Actions/libraryActions';
 import http from '../../../http';
+import {toast} from react-toastify;
+
 
 export default function AddStudent() {
 
@@ -14,7 +16,6 @@ export default function AddStudent() {
 
     const singlestudent = useSelector((state) => state.singlestudent);
 
-    console.log(singlestudent);
     const addstudent=()=> 
     {
      const newstudent={
@@ -25,25 +26,34 @@ export default function AddStudent() {
 
 
     http.post(`students`, newstudent).then((result) => {
-      console.log(result.data);
+      
+      if (result.data === '1'){
+        console.log("Created Student");
+      }
+      else if (result.data === '2')
+      {
+        console.log("Student Already Exists");
+      }
     }).catch(error => {
         console.log(error.message);
     });
-    const oldStudent = [...students];
-    oldStudent.push(newstudent);
-    dispatch(setStudent(oldStudent));
+      getStudentData();
     }
 
-    // const getStudentData=()=>
-    // {
-    //   http.get(`students`).then((result) => {
-    //     console.log(result.data);
-    //     return result.data;
+    const getStudentData=()=>
+    {
+      http.get(`students`).then((result) => {
+        if (result.data == '1'){
+          console.log("Created Student");
+        }
+        else 
+          console.log("Student Already Exists");
+        dispatch(setStudent(result.data[0]))
   
-    //   }).catch(error => {
-    //       console.log(error.message);
-    //   });
-    // }
+      }).catch(error => {
+          console.log(error.message);
+      });
+    }
 
 
 
@@ -64,17 +74,17 @@ export default function AddStudent() {
       }
 
 
-      http.put(`students/${singlestudent.id}`, studentdatabase).then((result) => {
+      http.put(`students/${singlestudent.id}/edit`, studentdatabase).then((result) => {
         console.log(result.data);
+
       }).catch(error => {
           console.log(error.message);
       });
 
 
-
       const oldStudent = [...students];
       const studentindex = oldStudent.findIndex((student) => student.id===singlestudent.id);
-      console.log(studentindex);
+
       oldStudent.splice(studentindex,1,updatedstudent);
       dispatch(setStudent(oldStudent));
 

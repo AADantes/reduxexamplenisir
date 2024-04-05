@@ -26,15 +26,16 @@ export default function AddBook() {
     }).catch(error => {
         console.log(error.message);
     });
-    const oldBook = getBookData();
-    dispatch(setBooks(oldBook));
+    // const oldBook = getBookData();\
+    getBookData();
+    // dispatch(setBooks(oldBook));
     }
 
     const getBookData=()=>
     {
       http.get(`books`).then((result) => {
         console.log(result.data);
-        return result.data;
+        dispatch(setBooks(result.data[0]));
   
       }).catch(error => {
           console.log(error.message);
@@ -60,7 +61,7 @@ export default function AddBook() {
         status:'Active'
       }
 
-      http.put(`books/${singlebook.id}`, bookdatabase).then((result) => {
+      http.put(`books/${singlebook.id}/edit`, bookdatabase).then((result) => {
         console.log(result.data);
       }).catch(error => {
           console.log(error.message);

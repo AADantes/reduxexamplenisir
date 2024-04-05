@@ -6,12 +6,10 @@ import http from '../../../http';
 export default function DisplayStudent() {
 
     const students = useSelector((state) => state.allStudents.students);
-    console.log(students)
     const dispatch = useDispatch();
 
 
     const GetStudentId =(id)=>{
-    console.log(id);
 
 
     const singlestudent= students.find((student)=>student.id===id);
@@ -27,13 +25,21 @@ export default function DisplayStudent() {
     const singlestudent1= students.find((student)=>student.id===id);
     singlestudent1.state="REMOVED";
 
-
     const oldStudent = [...students];
       const studentindex = oldStudent.findIndex((student) => student.id===id);
-    
+
+
       oldStudent.splice(studentindex,1,singlestudent1);
       dispatch(setStudent(oldStudent));
       console.log(students);
+
+      http.delete(`students/${singlestudent1.id}/delete`).then((result) => {
+      
+        console.log(result.data);
+  
+      }).catch(error => {
+          console.log(error.message);
+      });
 
 
   /*dispatch (setSelectedStudent(singlestudent))*/
@@ -85,7 +91,6 @@ export default function DisplayStudent() {
                   &nbsp;
                   <button onClick={() => GetRemoveId(students.id)}>Delete</button>
                 </td>
-                <td>Actions</td>
             </tr>
             )
     })

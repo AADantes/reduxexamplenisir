@@ -23,13 +23,34 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        $student = new Student();
-        $student ->firstname = $request->firstname;
-        $student ->lastname = $request->lastname;
-        $student ->status = $request->status;
-        $student ->save();
 
-        echo "Successful!";
+        // $firstname = $request -> firstname;
+        // $lastname = $request-> lastname;
+        // $output = array();
+
+        $students = Student::where('firstname', $request->firstname) -> where ('lastname', $request->lastname) ->get();
+
+        if(count($students)>0){
+            echo "2";
+        }
+        else
+        {
+            $student = new Student();
+            $student ->firstname = $request->firstname;
+            $student ->lastname = $request->lastname;
+            $student ->status = $request->status;
+            $student ->save();
+    
+            echo "Successful!";   
+        }
+
+        // $student = new Student();
+        // $student ->firstname = $request->firstname;
+        // $student ->lastname = $request->lastname;
+        // $student ->status = $request->status;
+        // $student ->save();
+
+        // echo "Successful!";
     }
 
     public function show($id)

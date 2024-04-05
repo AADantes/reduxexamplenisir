@@ -34,6 +34,15 @@ export default function DisplayBook() {
       oldBook.splice(bookindex,1,singlebook1);
       dispatch(setBooks(oldBook));
       console.log(books);
+
+      http.delete(`books/${singlebook1.id}/delete`).then((result) => {
+      
+        console.log(result.data);
+      }).catch(error => {
+          console.log(error.message);
+      });
+
+
   }
 
   const getBookData=()=>
@@ -63,7 +72,6 @@ export default function DisplayBook() {
           <th>Book Name</th>
           <th>Description</th>
           <th>Status</th>
-          <th>Actions</th>
         </tr>
       </thead>
 
@@ -71,22 +79,21 @@ export default function DisplayBook() {
 
 <tbody>
 {
-  books.filter((book)=>book.state!=='REMOVED').map((books) => {
+  books.filter((book)=>book.state!=='REMOVED').map((book) => {
     return(
-      <tr key={books.id}>
-        <td>{books.id}</td>
-        <td>{books.bookname}</td>
-        <td>{books.description}</td>
-        <td>{books.status}</td>
+      <tr key={book.id}>
+        <td>{book.id}</td>
+        <td>{book.bookname}</td>
+        <td>{book.description}</td>
+        <td>{book.status}</td>
 
         <td>
 
-                  <button onClick={() => GetBookId(books.id)}>Edit</button>
+                  <button onClick={() => GetBookId(book.id)}>Edit</button>
                   &nbsp;
-                  <button onClick={() => GetRemoveId(books.id)}>Delete</button>
+                  <button onClick={() => GetRemoveId(book.id)}>Delete</button>
                 </td>
 
-        <td>Actions</td>
     </tr>
     )
 })
